@@ -4,9 +4,6 @@
 # pip install webdriver-manager (Устанавливаем webdriver-manager)
 
 # импортируем необходимые библиотеки и элементы
-import time
-import datetime
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium import webdriver
@@ -25,15 +22,18 @@ driver.get(base_url)
 driver.maximize_window()
 
 # вводим логин, пароль и имитируем нажатие Enter
-user_name = driver.find_element(By.XPATH, "//*[@id='user-name']").send_keys('standard_user')
-password = driver.find_element(By.NAME , "password").send_keys('secret_sauce', Keys.ENTER)
+user_name = driver.find_element(By.XPATH, "//*[@id='user-name']")
+user_name.send_keys('standard_user')
+password = driver.find_element(By.NAME , "password")
+password.send_keys('secret_sauce', Keys.ENTER)
 
 # записываем в переменные название и цену первого товара и добавляем его в корзину
 value_product1 = driver.find_element(By.XPATH, "//*[@id='item_4_title_link']").text
 print(f'Product1: {value_product1}')
 value_price_product1 = driver.find_element(By.XPATH, "//*[@id='inventory_container']/div/div[1]/div[2]/div[2]/div").text
 print(f'Product1 Price: {value_price_product1}')
-select_product1 = driver.find_element(By.XPATH, "//button[@id='add-to-cart-sauce-labs-backpack']").click()
+select_product1 = driver.find_element(By.XPATH, "//button[@id='add-to-cart-sauce-labs-backpack']")
+select_product1.click()
 print('Select product1')
 
 # повторяем то же самое для второго товара
@@ -41,11 +41,13 @@ value_product2 = driver.find_element(By.XPATH, "//*[@id='item_0_title_link']/div
 print(f'Product2: {value_product2}')
 value_price_product2 = driver.find_element(By.XPATH, "//*[@id='inventory_container']/div/div[2]/div[2]/div[2]/div").text
 print(f'Product2 Price: {value_price_product2}')
-select_product2 = driver.find_element(By.XPATH, "//button[@id='add-to-cart-sauce-labs-bike-light']").click()
+select_product2 = driver.find_element(By.XPATH, "//button[@id='add-to-cart-sauce-labs-bike-light']")
+select_product2.click()
 print('Select product2')
 
 # открываем корзину
-button_cart_link = driver.find_element(By.XPATH, "//a[@data-test='shopping-cart-link']").click()
+button_cart_link = driver.find_element(By.XPATH, "//a[@data-test='shopping-cart-link']")
+button_cart_link.click()
 print('Enter Cart')
 
 # проверяем соответствие наименований и цен в корзине
@@ -70,15 +72,20 @@ assert value_price_product2 == value_cart_price_product2
 print('Cart Price Product 2 GOOD')
 
 # переходим по кнопке "Checkout", вводим данные заказчика и переходим по кнопке "Continue"
-checkout = driver.find_element(By.XPATH, "//*[@id='checkout']").click()
+checkout = driver.find_element(By.XPATH, "//*[@id='checkout']")
+checkout.click()
 print('Click Checkout')
-first_name = driver.find_element(By.XPATH, "//input[@id='first-name']").send_keys('Tyler')
+first_name = driver.find_element(By.XPATH, "//input[@id='first-name']")
+first_name.send_keys('Tyler')
 print('Input First Name')
-last_name = driver.find_element(By.XPATH, "//input[@id='last-name']").send_keys('Durden')
+last_name = driver.find_element(By.XPATH, "//input[@id='last-name']")
+last_name.send_keys('Durden')
 print('Input Last Name')
-postal_code = driver.find_element(By.XPATH, "//input[@id='postal-code']").send_keys(123456)
+postal_code = driver.find_element(By.XPATH, "//input[@id='postal-code']")
+postal_code.send_keys('123456')
 print('Input Postal Code')
-button_continue = driver.find_element(By.XPATH, "//input[@id='continue']").click()
+button_continue = driver.find_element(By.XPATH, "//input[@id='continue']")
+button_continue.click()
 print('Click Continue')
 
 # Сверяем наименования и цены на финальной странице оформления заказа
@@ -110,7 +117,8 @@ assert value_summary_price == item_total
 print('Summary Price GOOD')
 
 # завершаем оформление заказа и удостоверяемся что находимся на нужной странице
-button_finish = driver.find_element(By.XPATH, "//*[@id='finish']").click()
+button_finish = driver.find_element(By.XPATH, "//*[@id='finish']")
+button_finish.click()
 print('Click Finish Button')
 
 value_checkout_complete = driver.find_element(By.XPATH, "//*[contains(text(), 'Thank you for your order!')]").text
